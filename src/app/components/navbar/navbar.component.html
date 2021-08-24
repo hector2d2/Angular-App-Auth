@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Auth App</a>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a routerLinkActive="active" routerLink="/home" class="nav-link" aria-current="page" >Home</a>
+          </li>
+          <li class="nav-item">
+            <a routerLinkActive="active" routerLink="/precios" class="nav-link" href="#">Precios</a>
+          </li>
+          <li class="nav-item" *ngIf="auth.isAuthenticated$ | async">
+            <a routerLinkActive="active" routerLink="/protegida" class="nav-link" href="#">Protegida</a>
+          </li>
+        </ul>
+        <span class="navbar-text">
+            
+            <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+                <button (click)="auth.logout()"class="btn btn-outline-danger">
+                  Salir
+                </button>
+              </ng-container>
+          
+              <ng-template #loggedOut>
+                <button (click)="auth.loginWithRedirect()"  class="btn btn-outline-primary">Ingresar</button>
+              </ng-template>
+        </span>
+      </div>
+    </div>
+  </nav>
